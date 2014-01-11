@@ -1,0 +1,93 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 800px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+} 
+scroll-container{
+} 
+ 
+.areaChat{
+  height: 300px;
+  overflow-y:scroll;
+  background-color: #fff;
+
+
+ }
+
+ .areaUser{ 
+  height: 300px;
+  overflow-y:scroll;
+ }
+
+ul.scroll {
+list-style-type: none;
+margin-bottom: 0px;
+padding-left: 0px;
+}
+
+.scroll > li {
+float: left;
+display: inline;
+}
+ 
+
+ .chats-id{
+  display: none;
+ }
+.chats-name-pre{
+  background-color: #ffffff;
+  border: none;
+}
+
+ .chats-name{
+width: 15%;
+ }
+
+
+.scrollbar-area::-webkit-scrollbar {
+  width: 10px;
+}
+ 
+.scrollbar-area::-webkit-scrollbar-track {
+  background-color:#edeadf;
+  border-radius: 10px;
+}
+ 
+.scrollbar-area::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color:#FFC6A6;
+}
+
+.btnPrivate{
+  display: none;
+} 
