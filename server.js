@@ -1,13 +1,40 @@
-var connect = require('connect'),
-io = require('socket.io').listen(connect.createServer(connect.static(__dirname+"/front/")).listen(3000));
+//var connect = require('connect'),
+//io = require('socket.io').listen(connect.createServer(connect.static(__dirname+"/front/")).listen(3000));
+var public_dir = "./front",
+    port=3000,
+    total_usr_cnt=0,
+    total_room_cnt=0;
 
-/*
-var express = require("express");
-var app = express();
-var port = 3700; 
-app.use(express.static(__dirname + '/public'));
-var io = require('socket.io').listen(   app.listen(port));
-*/
+var swig  = require('swig'),
+    express = require('express'),
+    app = express(),
+    io = require('socket.io').listen(app.listen(port));
+
+    app.use('/js',express.static(public_dir+'/js'));
+    app.use('/css',express.static(public_dir+'/css'));
+
+    app.engine('html', swig.renderFile);
+    app.set('view engine', 'html');
+    app.set('views', public_dir);
+
+    // Swig will cache templates for you, but you can disable
+    // that and use Express's caching instead, if you like:
+    app.set('view cache', false);
+    // To disable Swig's cache, do the following:
+    swig.setDefaults({ cache: false });
+    // NOTE: You should always cache templates in a production environment.
+    // Don't leave both of these to `false` in production!
+
+    app.get('/', function (req, res) {
+
+      res.render('index', {  
+        pagename: 'awesome people',
+        authors: ['Paul', 'Jim', 'Jane']
+      });
+      
+    });
+
+
 console.log("server is started at port 3000"); 
 
 io.set('log level', 1);
