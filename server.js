@@ -1,5 +1,6 @@
 //var connect = require('connect'),
 //io = require('socket.io').listen(connect.createServer(connect.static(__dirname+"/front/")).listen(3000));
+//test git 
 var public_dir = "./front",
     port=3000,
     total_usr_cnt=0,
