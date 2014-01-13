@@ -5,6 +5,7 @@ var public_dir = "./front",
     total_room_cnt=0;
 
 var swig  = require('swig'),
+    MongoClient = require('mongodb').MongoClient,
     express = require('express'),
     app = express(),
     io = require('socket.io').listen(app.listen(port));
@@ -34,16 +35,41 @@ var swig  = require('swig'),
     });
 
 
+
+// mongodb connect
+MongoClient.connect('mongodb://localhost:27017/ChatData', function(err, db) {
+     var collection = db.collection('Rooms');
+  if(err) throw err;
+  console.log("Connected to Database");
+
+    collection.insert({"w":"1"}, function(docs) { 
+        console.log("CCCCCC");       
+         collection.count(function(err, count) {
+          console.log("There are " + count + " records.");
+        }); 
+    });
+
+
+
+})
+
+
 console.log("server is started at port 3000"); 
 
 io.set('log level', 1);
 
 // clients and sockets. cls id and clsScoket's first val are keys.
-var clsSocket={};
+var clsSocket={}
+ 
 
 io.sockets.on('connection', function (socket) {
     //join room
-    socket.join('room');
+    socket.leave(null);
+    socket.join('roomf');
+
+    //console.log(socket.namespace.manager.rooms);
+    console.log(io.sockets.in('roomf').manager.rooms);
+
     var myid = socket.id;
     // report stat
     socket.emit('con', { stat: 'connected' });
@@ -53,18 +79,19 @@ io.sockets.on('connection', function (socket) {
     data['nick'] = "system";
     data['msg'] = "joined someone!";
     //socket.emit('stc', data);
-    io.sockets.in('room').emit('stc', data);
+    io.sockets.in('roomf').emit('stc', data);
 
     //push nick
     socket.on('ctsSetNick', function (nameData) {
         //clients nicknames
         socket.nickname = nameData.nick;
-        clsSocket[myid] = socket;
+        clsSocket[myid] = socket; 
+
         console.log("join : " + clsSocket[myid].nickname);
 
         //get room's clients
         var cls = [];
-        var roster = io.sockets.clients('room');
+        var roster = io.sockets.clients('roomf');
 
         roster.forEach(function (client) {
             //cls.push("{'nick':'"+client.nickname+"'}");
@@ -72,7 +99,7 @@ io.sockets.on('connection', function (socket) {
         });
         // send clients Array 
         //io.sockets.sockets[""].emit('usrs', cls); //emit close
-        io.sockets.in('room').emit('usrs', cls); //emit close
+        io.sockets.in('roomf').emit('usrs', cls); //emit close
         console.log(cls);
 
         console.log('---------------------------');
@@ -86,9 +113,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('cts', function (data) {
         //send msg
         //socket.broadcast.to('room').emit('stc',data);
-
-        io.sockets.in('room').emit('stc', data);
-
+        io.sockets.in('roomf').emit('stc', data);
         //to broadcast information to a certain room (excluding the client):
         //socket.broadcast.to('room1').emit('function', 'data1', 'data2');
         //to broadcast information globally:
@@ -105,17 +130,17 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
-        socket.leave('room');
+        socket.leave('roomf');
         delete clsSocket[socket.id];
         //get room's clients
         var cls = [];
-        var roster = io.sockets.clients('room');
+        var roster = io.sockets.clients('roomf');
         roster.forEach(function (client) {
             cls.push({ 'id': client.id, 'nick': client.nickname });
         });
         console.log(cls);
         // send clients Array
-        io.sockets.in('room').emit('usrs', cls); //emit close
+        io.sockets.in('roomf').emit('usrs', cls); //emit close
     });
 
 
