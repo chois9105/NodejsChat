@@ -42,13 +42,21 @@ MongoClient.connect('mongodb://localhost:27017/ChatData', function(err, db) {
   if(err) throw err;
   console.log("Connected to Database");
 
-    collection.insert({"w":"1"}, function(docs) { 
-        console.log("CCCCCC");       
+/*
+    collection.insert({"y":"1"}, function(docs) {   
          collection.count(function(err, count) {
           console.log("There are " + count + " records.");
         }); 
-    });
+    });  
+*/
 
+
+/*
+    collection.find({"w":"1"}).toArray(function(err, docs) {            
+      console.log("Returned #" + docs.length + " documents");          
+      console.log(docs);
+    }); 
+*/
 
 
 })
