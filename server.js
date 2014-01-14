@@ -51,12 +51,12 @@ MongoClient.connect('mongodb://localhost:27017/ChatData', function(err, db) {
 */
 
 
-/*
-    collection.find({"w":"1"}).toArray(function(err, docs) {            
+
+    collection.find({"y":{"$lte":"2"}}).toArray(function(err, docs) {            
       console.log("Returned #" + docs.length + " documents");          
       console.log(docs);
     }); 
-*/
+
 
 
 })
@@ -152,4 +152,4 @@ io.sockets.on('connection', function (socket) {
     });
 
 
-});
+}); //io.sockets.on('connection', function (socket) {
