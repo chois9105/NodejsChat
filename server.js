@@ -11,7 +11,8 @@ var swig  = require('swig'),
     io = require('socket.io').listen(app.listen(port));
 
     app.use('/js',express.static(public_dir+'/js'));
-    app.use('/css',express.static(public_dir+'/css'));
+    app.use('/css',express.static(public_dir+'/css')); 
+    app.use(express.bodyParser());
 
     app.engine('html', swig.renderFile);
     app.set('view engine', 'html');
@@ -26,13 +27,27 @@ var swig  = require('swig'),
     // Don't leave both of these to `false` in production!
 
     app.get('/', function (req, res) {
+      res.send('<script>location.href="/login";</script>');
+    });
+    app.get('/login', function (req, res) {
+      res.render('login', { 
+      });
+    });
+    app.post('/RoomList', function (req, res) {
+        console.log(req.body);
+      res.send('<script>location.href="/Chat";</script>');
+      //res.render('RoomList', { 
+      //});
+    });
 
-      res.render('index', {  
+    app.get('/Chat', function (req, res) {
+      res.render('Chat', {  
         pagename: 'awesome people',
         authors: ['Paul', 'Jim', 'Jane']
-      });
-      
+      }); 
     });
+
+
 
 
 
@@ -52,7 +67,7 @@ MongoClient.connect('mongodb://localhost:27017/ChatData', function(err, db) {
 
 
 
-    collection.find({"y":{"$lte":"2"}}).toArray(function(err, docs) {            
+    collection.find({"y":{"$lt":"2"}}).toArray(function(err, docs) {            
       console.log("Returned #" + docs.length + " documents");          
       console.log(docs);
     }); 

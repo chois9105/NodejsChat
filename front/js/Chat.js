@@ -1,6 +1,5 @@
 $(function () {
-
- var socket = io.connect(location.href);
+ var socket = io.connect("http://"+location.host);
  var nick = Math.floor((Math.random()*100000)+1);
 	$("#myid").html(nick);
 
