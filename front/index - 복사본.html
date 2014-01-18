@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link type="text/css" rel="stylesheet" href="/js/librarys/bootstrap/css/bootstrap.min.css">
+        <link type="text/css" rel="stylesheet" href="/js/librarys/bootstrap/css/bootstrap-theme.min.css">
+        <link type="text/css" rel="stylesheet" href="/css/chat.css">
+        <script src="/js/librarys/jq10.2.js"></script>
+        <script src="/js/librarys/bootstrap/js/bootstrap.min.js"></script> 
+        <script src="/js/librarys/socket.io.min.js"></script>
+        <script src="/js/librarys/scrollTo.js"></script>
+
+        <script src="/js/Script.js"></script>
+
+<link rel="stylesheet" href="/js/librarys/sprite/demo.css" />
+<script type="text/javascript" src="/js/librarys/sprite/jquery.sprite.min.js"></script>
+<script type="text/javascript" src="/js/librarys/sprite/demo.js"></script>
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+
+      <form class="form-signin" role="form" onsubmit="return false;">
+        <h2 id="myid" class="form-signin-heading">Please sign in</h2>
+        <p id="sendWho">To Everyone</p>
+
+          <div class="scroll-container">
+          <ul class="scroll"> 
+              <li class="areaChat scrollbar-area" style="width: 80%"> 
+                  <table id="chats" class="table"> 
+                  </table>
+              </li> 
+
+              <li class="areaUser scrollbar-area" style="width: 20%"> 
+                  <table id="userList" class="table">
+                  </table>
+              </li> 
+          </ul>
+             
+          
+          </div>
+
+        <input type="text" id="msg" class="form-control" placeholder="Message">
+
+        <button id="sendBtn" class="btn btn-lg btn-primary btn-block">Send</button>
+
+
+<h1>{{ pagename|title }}</h1>
+<ul>
+{% for author in authors %}
+  <li{% if loop.first %} class="first"{% endif %}>
+    {{ author }}
+  </li>
+{% endfor %}
+</ul>
+
+
+<div id="board" style="margin:0 auto;margin-top:20px">
+  <span id="player1" class="player" style=" width: 32px; height: 32px; left: 11px; top: 159px; background-position: -125px -64px;"></span>
+</div>
+      </form>
+
+    </div>
+
+
+    </body>
+</html>
