@@ -2,13 +2,17 @@
 var public_dir = "./front",
     port=3000,
     total_usr_cnt=0,
-    total_room_cnt=0;
+    total_room_cnt=0,
+    Rooms_list=[];
 
 var swig  = require('swig'),
     MongoClient = require('mongodb').MongoClient,
     express = require('express'),
     app = express(),
     io = require('socket.io').listen(app.listen(port));
+
+    io.set('log level', 1); //decrease debug log.
+
 
     app.use('/js',express.static(public_dir+'/js'));
     app.use('/css',express.static(public_dir+'/css')); 
@@ -29,142 +33,148 @@ var swig  = require('swig'),
     app.get('/', function (req, res) {
       res.send('<script>location.href="/login";</script>');
     });
-    app.get('/login', function (req, res) {
-      res.render('login', { 
-      });
-    });
-    app.post('/RoomList', function (req, res) {
-        console.log(req.body);
-      res.send('<script>location.href="/Chat";</script>');
-      //res.render('RoomList', { 
-      //});
-    });
-
-    app.get('/Chat', function (req, res) {
-      res.render('Chat', {  
-        pagename: 'awesome people',
-        authors: ['Paul', 'Jim', 'Jane']
-      }); 
-    });
-
-
-
 
 
 // mongodb connect
 MongoClient.connect('mongodb://localhost:27017/ChatData', function(err, db) {
-     var collection = db.collection('Rooms');
-  if(err) throw err;
-  console.log("Connected to Database");
+      if(err) throw err;
 
-/*
-    collection.insert({"y":"1"}, function(docs) {   
-         collection.count(function(err, count) {
-          console.log("There are " + count + " records.");
-        }); 
+      db.dropDatabase(function() { //remove collection when starting server
+      }); 
+
+     var Room_collection = db.collection('Rooms');
+     var Chat_collection = db.collection('Chats');
+
+      /*collection.remove(function(err, result) { 
+      });*/
+
+    Room_collection.insert({"id":"1","name":"testRoom"}, function(docs) {   
+        //Room_collection.count(function(err, count) {
+        //}); 
     });  
-*/
+    Room_collection.insert({"id":"1","name":"testRoom2"}, function(docs) { }); 
 
 
 
-    collection.find({"y":{"$lt":"2"}}).toArray(function(err, docs) {            
-      console.log("Returned #" + docs.length + " documents");          
-      console.log(docs);
-    }); 
+    // open login page
+    app.get('/login', function (req, res) {
+      res.render('login', { 
+      });
+    });
 
+    // open RoomList
+    app.post('/RoomList', function (req, res) {
+        //console.log(req.body); // get post prarams 
+        var RoomsArr=[];
+        //get Room list from mongoDB
+        Room_collection.find().toArray(function(err, rows) { 
+            //res.send('<script>location.href="/Chat";</script>');
+            res.render('RoomList', { 
+                rooms: rows
+            });
+        });
+      //console.log(io.rooms);
+    });
 
+    // open Chat page
+    app.post('/Chat', function (req, res) { 
 
-})
+        res.render('Chat', { 
+            this_room:req.body.this_room
+      });
+    });
 
-
-console.log("server is started at port 3000"); 
-
-io.set('log level', 1);
 
 // clients and sockets. cls id and clsScoket's first val are keys.
-var clsSocket={}
+var clsSocket={};
  
 
-io.sockets.on('connection', function (socket) {
-    //join room
-    socket.leave(null);
-    socket.join('roomf');
 
-    //console.log(socket.namespace.manager.rooms);
-    console.log(io.sockets.in('roomf').manager.rooms);
+    io.sockets.on('connection', function (socket) { 
 
-    var myid = socket.id;
-    // report stat
-    socket.emit('con', { stat: 'connected' });
-    
-    //alarm 
-    var data={};
-    data['nick'] = "system";
-    data['msg'] = "joined someone!";
-    //socket.emit('stc', data);
-    io.sockets.in('roomf').emit('stc', data);
 
-    //push nick
-    socket.on('ctsSetNick', function (nameData) {
-        //clients nicknames
-        socket.nickname = nameData.nick;
-        clsSocket[myid] = socket; 
+        //console.log(socket.namespace.manager.rooms);
+        //console.log(io.sockets.in('roomf').manager.rooms);
 
-        console.log("join : " + clsSocket[myid].nickname);
+        var myid = socket.id;
+        // report stat
+        socket.emit('con', { stat: 'connected' });
+        
+        //alarm 
+        var data={};
+        data['nick'] = "system";
+        data['msg'] = "joined someone!";
+        data['MyRoom'] = '';
+        //socket.emit('stc', data);
+        //io.sockets.in('roomf').emit('stc', data);
 
-        //get room's clients
-        var cls = [];
-        var roster = io.sockets.clients('roomf');
-
-        roster.forEach(function (client) {
-            //cls.push("{'nick':'"+client.nickname+"'}");
-            cls.push({ 'id': client.id, 'nick': client.nickname });
+        socket.on('ChangeRoom', function (Data) {
+            data['MyRoom'] = Data.room;
+            //join room
+            socket.leave(null);
+            socket.join(data['MyRoom']);
         });
-        // send clients Array 
-        //io.sockets.sockets[""].emit('usrs', cls); //emit close
-        io.sockets.in('roomf').emit('usrs', cls); //emit close
-        console.log(cls);
-
-        console.log('---------------------------');
-        console.log(socket.namespace.manager.rooms);
 
 
+        //push nick
+        socket.on('ctsSetNick', function (nameData) {
+            //clients nicknames
+            socket.nickname = nameData.nick;
+            clsSocket[myid] = socket; 
 
-    });
+            console.log("join : " + clsSocket[myid].nickname);
 
-    // client to server data
-    socket.on('cts', function (data) {
-        //send msg
-        //socket.broadcast.to('room').emit('stc',data);
-        io.sockets.in('roomf').emit('stc', data);
-        //to broadcast information to a certain room (excluding the client):
-        //socket.broadcast.to('room1').emit('function', 'data1', 'data2');
-        //to broadcast information globally:
-        //io.sockets.in('room1').emit('function', 'data1', 'data2');
-    });
+            //get room's clients
+            var cls = [];
+            var roster = io.sockets.clients(data['MyRoom']);
 
+            roster.forEach(function (client) {
+                //cls.push("{'nick':'"+client.nickname+"'}");
+                cls.push({ 'id': client.id, 'nick': client.nickname });
+            });
+            // send clients Array 
+            //io.sockets.sockets[""].emit('usrs', cls); //emit close
+            io.sockets.in(data['MyRoom']).emit('usrs', cls); //emit close
+            console.log(cls);
 
-    // client to server data
-    socket.on('ctp', function (data) {
-        //send msg 
-        socket.emit('stc', data);
-        io.sockets.sockets[data.private].emit('stc', data);
- 
-    });
-
-    socket.on('disconnect', function () {
-        socket.leave('roomf');
-        delete clsSocket[socket.id];
-        //get room's clients
-        var cls = [];
-        var roster = io.sockets.clients('roomf');
-        roster.forEach(function (client) {
-            cls.push({ 'id': client.id, 'nick': client.nickname });
+            console.log('---------------------------');
+            console.log(socket.namespace.manager.rooms);
         });
-        console.log(cls);
-        // send clients Array
-        io.sockets.in('roomf').emit('usrs', cls); //emit close
-    });
+
+        // client to server data
+        socket.on('cts', function (client_data) {
+            console.log(data['MyRoom']+"____");
+            //send msg
+            //socket.broadcast.to('room').emit('stc',data);
+            io.sockets.in(data['MyRoom']).emit('stc', client_data);
+            //to broadcast information to a certain room (excluding the client):
+            //socket.broadcast.to('room1').emit('function', 'data1', 'data2');
+            //to broadcast information globally:
+            //io.sockets.in('room1').emit('function', 'data1', 'data2');
+        });
 
 
-}); //io.sockets.on('connection', function (socket) {
+        // client to server data
+        socket.on('ctp', function (client_pdata) {
+            //send msg 
+            socket.emit('stc', client_pdata);
+            io.sockets.sockets[client_pdata.private].emit('stc', client_pdata);
+     
+        });
+
+        socket.on('disconnect', function () {
+            socket.leave(data['MyRoom']);
+            delete clsSocket[socket.id];
+            //get room's clients
+            var cls = [];
+            var roster = io.sockets.clients(data['MyRoom']);
+            roster.forEach(function (client) {
+                cls.push({ 'id': client.id, 'nick': client.nickname });
+            });
+            console.log(cls);
+            // send clients Array
+            io.sockets.in(data['MyRoom']).emit('usrs', cls); //emit close
+        });
+
+    }) //io.sockets.on('connection', function (socket) {
+}); // mongodb connection close

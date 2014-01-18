@@ -10,54 +10,38 @@
         <script src="/js/librarys/socket.io.min.js"></script>
         <script src="/js/librarys/scrollTo.js"></script>
 
-        <script src="/js/Script.js"></script>
+        <script src="/js/RoomList.js"></script>
 
-<link rel="stylesheet" href="/js/librarys/sprite/demo.css" />
-<script type="text/javascript" src="/js/librarys/sprite/jquery.sprite.min.js"></script>
-<script type="text/javascript" src="/js/librarys/sprite/demo.js"></script>
         <title></title>
     </head>
     <body>
         <div class="container">
 
-      <form class="form-signin" role="form" onsubmit="return false;">
-        <h2 id="myid" class="form-signin-heading">Please sign in</h2>
-        <p id="sendWho">To Everyone</p>
+      <form id="RoomForm" class="form-signin" role="form" onsubmit="return false;" method="post" action="/Chat">
+      <input type="hidden" id="this_room" name="this_room" value="this_room"/>
+        <h2 id="myid" class="form-signin-heading">Rooms</h2>
+        <p id="sendWho"></p>
 
           <div class="scroll-container">
           <ul class="scroll"> 
-              <li class="areaChat scrollbar-area" style="width: 80%"> 
-                  <table id="chats" class="table"> 
-                  </table>
+              <li class="areaChat scrollbar-area" style="width: 100%">
+
+              {% for room in rooms %}
+                <pre name="rlist" class="num{{loop.index}}">{{ room.name }}</pre>
+              {% endfor %}
+
               </li> 
 
-              <li class="areaUser scrollbar-area" style="width: 20%"> 
-                  <table id="userList" class="table">
-                  </table>
-              </li> 
+
           </ul>
              
           
           </div>
+ 
 
-        <input type="text" id="msg" class="form-control" placeholder="Message">
-
-        <button id="sendBtn" class="btn btn-lg btn-primary btn-block">Send</button>
-
-
-<h1>{{ pagename|title }}</h1>
-<ul>
-{% for author in authors %}
-  <li{% if loop.first %} class="first"{% endif %}>
-    {{ author }}
-  </li>
-{% endfor %}
-</ul>
-
-
-<div id="board" style="margin:0 auto;margin-top:20px">
-  <span id="player1" class="player" style=" width: 32px; height: 32px; left: 11px; top: 159px; background-position: -125px -64px;"></span>
-</div>
+        <button id="sendBtn" class="btn btn-lg btn-primary btn-block" onclick="RoomForm.submit()">Send</button>
+ 
+ 
       </form>
 
     </div>

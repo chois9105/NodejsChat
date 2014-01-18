@@ -3,6 +3,9 @@ $(function () {
  var nick = Math.floor((Math.random()*100000)+1);
 	$("#myid").html(nick);
 
+  var data = {"room":$("#RoomName").html()};
+  socket.emit('ChangeRoom', data);
+
 //when connected...
   socket.on('con', function (data) {
   	//if(data.stat == 'connected')
@@ -23,8 +26,8 @@ $(function () {
   }); 
 
 //get msg
-    socket.on('stc', function (data) {
-    	$("#chats").append("<tr><td class='chats-id'></td><td class='chats-name'><pre class='chats-name-pre'>"+data.nick+"</pre></td><td><pre>"+data.msg+"</pre></td></tr>");
+    socket.on('stc', function (client_data) {
+    	$("#chats").append("<tr><td class='chats-id'></td><td class='chats-name'><pre class='chats-name-pre'>"+client_data.nick+"</pre></td><td><pre>"+client_data.msg+"</pre></td></tr>");
     	$(".areaChat").scrollTo("100%",120);
     });
 

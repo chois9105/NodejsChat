@@ -22,6 +22,8 @@
 
       <form class="form-signin" role="form" onsubmit="return false;">
         <h2 id="myid" class="form-signin-heading">Please sign in</h2>
+
+        <h2 class="form-signin-heading" id="RoomName">{{this_room}}</h2>
         <p id="sendWho">To Everyone</p>
 
           <div class="scroll-container">
@@ -45,19 +47,9 @@
         <button id="sendBtn" class="btn btn-lg btn-primary btn-block">Send</button>
 
 
-<h1>{{ pagename|title }}</h1>
-<ul>
-{% for author in authors %}
-  <li{% if loop.first %} class="first"{% endif %}>
-    {{ author }}
-  </li>
-{% endfor %}
-</ul>
-
-
-<div id="board" style="margin:0 auto;margin-top:20px">
-  <span id="player1" class="player" style=" width: 32px; height: 32px; left: 11px; top: 159px; background-position: -125px -64px;"></span>
-</div>
+        <div id="board" style="margin:0 auto;margin-top:20px">
+          <span id="player1" class="player" style=" width: 32px; height: 32px; left: 11px; top: 159px; background-position: -125px -64px;"></span>
+        </div>
       </form>
 
     </div>
