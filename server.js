@@ -16,6 +16,8 @@ var swig  = require('swig'),
 
     app.use('/js',express.static(public_dir+'/js'));
     app.use('/css',express.static(public_dir+'/css')); 
+    /* less test */
+    app.use('/less',express.static(public_dir+'/less')); 
     app.use(express.bodyParser());
 
     app.engine('html', swig.renderFile);
@@ -29,10 +31,16 @@ var swig  = require('swig'),
     swig.setDefaults({ cache: false });
     // NOTE: You should always cache templates in a production environment.
     // Don't leave both of these to `false` in production!
-
     app.get('/', function (req, res) {
       res.send('<script>location.href="/login";</script>');
     });
+
+    /* less test
+    app.get('/less', function (req, res) { 
+      res.render('/less/index', { 
+      });
+    });
+    */
 
 
 // mongodb connect
