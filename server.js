@@ -16,6 +16,7 @@ var swig  = require('swig'),
 
     app.use('/js',express.static(public_dir+'/js'));
     app.use('/css',express.static(public_dir+'/css')); 
+    app.use('/img',express.static(public_dir+'/img')); 
     /* less test */
     app.use('/less',express.static(public_dir+'/less')); 
     app.use(express.bodyParser());
