@@ -1,6 +1,30 @@
 
+function resize_chat(){
+  var win = $(window);
+  var wh = win.height(),
+      ww = win.width(); 
+
+      //$("head").append("<style type='text/less'>.message-left {max-width : '"ww+"px'}</style>");
+      //$(".message-left").css("max-width",ww+"px");
+
+      $("body").css("margin","0px");
+      $("html").css("overflow","hidden");
+      /*
+      $("#frames").css({"height":wh+"px","width":"initial"});
+      $("#slide").css("width", ww*3.5 + "px");
+      $(".slideBox").css({"width":ww+ "px"});
+      
+      $("#frames").css({"height":wh+"px","width":"initial"});
+      //$("#slide").css("height", wh + "px");
+      //$(".slideBox").css({"height":wh+ "px"});
+      $(".area_login").css({"height":wh - ($(".bar_title").css("height").split("px")[0]) + "px"});
+      $(".area_Rooms").css({"height":wh - ($(".bar_title").css("height").split("px")[0]) + "px"});
+      $(".area_chat").css({"height":wh - (parseInt($(".bar_info").css("height").split("px")[0]) *3)-3 + "px"});
+      */
+}
 
 $(function () {
+resize_chat();
  var socket = io.connect("http://"+location.host);
 
   $(document).on('click','.Room',function(){ 
@@ -33,8 +57,7 @@ $(function () {
     });
 
     // add room btn
-    $("#add_room").click(function(){
-      alert("ee");
+    $("#add_room").click(function(){ 
       var RoomData = {"id":"1","name":$("#RoomName").val()};
       socket.emit('CreateRoom', RoomData);
       $("#toggle_room_box, p[name='toggle_room_box']").click();
@@ -127,7 +150,7 @@ $(function () {
 
 var move_slide  = function(num){
     $( "#slide" ).animate({
-        marginLeft: num * (-350) + "px"
+        marginLeft: num * (-$(".slideBox").css("width").split("px")[0]) + "px"
         }, 500, function() {
         // Animation complete.
     });
