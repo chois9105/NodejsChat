@@ -2,7 +2,12 @@
 <head>
     <title></title> 
     <link rel="stylesheet/less" type="text/css" href="style.less" />
-    <script src="less-1.6.1.min.js"></script>
+    <script src="less-1.6.1.min.js"></script> 
+    <script src="/js/librarys/jq10.2.js"></script>
+    <script src="/js/librarys/bootstrap/js/bootstrap.min.js"></script> 
+    <script src="/js/librarys/socket.io.min.js"></script>
+    <script src="/js/librarys/scrollTo.js"></script>
+    <script src="/js/Chat-less.js"></script> 
 
 
 <script type="text/javascript">
@@ -29,6 +34,99 @@
     <div id="frames">
         <div id="slide">
 
+
+
+            <div class="slideBox">
+
+                <div class="bar_title row">
+                    <div class="cell"> 
+                        <div class="left"> 
+                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
+                            <p class="title_txt icons">Login</p>
+                        </div>
+                        <!--
+                        <div class="right"> 
+                            <img class="icons" src="/img/icons/063 Undo.png" > 
+                        </div>  
+                        -->
+                    </div>
+                </div>
+
+ 
+
+                <div class="area_login one-edge-shadow row">  
+
+                    <div class="cell">  
+                        <input type="text" id="txt_nick" class="left" />
+                        <div id="btn_login" class="btn" style="display: inherit">
+                            <p>send</p>
+                        </div>  
+                    </div>
+
+
+
+
+                </div>
+            </div> 
+
+
+
+
+
+            <div class="slideBox">
+
+                <div class="bar_title row">
+                    <div class="cell"> 
+                        <div class="left"> 
+                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
+                            <p class="title_txt icons">Rooms</p>
+                        </div>
+                        
+                        <div class="right"> 
+                            <img class="icons" src="/img/icons/063 Undo.png" onclick="move_slide(0)"> 
+                        </div>  
+                        
+                    </div>
+                </div> 
+
+
+                <div class="bar_input row add_room_info">
+                   <div class="cell">
+                        <div class="row">
+                            <div class="cell" style="width: initial;">
+                                <span>
+                                    <img id="toggle_room_box" class="icons" src="/img//icons/081 Pen.png"> 
+                                </span>
+                            </div>
+
+                            <div class="cell" name="create_room_text">
+                             <p name="toggle_room_box">Create New Room + </p>
+                            </div>
+
+
+                            <div class="cell" name="create_room_box" style="display:none">
+                                <textarea id="RoomName" placeholder="Type your RoomName"></textarea> 
+                            </div>
+                            <div class="cell initial"  name="create_room_box" style="display:none">
+                                <div id="add_room" class="btn right">
+                                    <p>Create</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="area_Rooms one-edge-shadow">   
+
+                    <ul id="RoomList" class="RoomList">
+                    </ul>
+                </div>
+            </div> 
+
+
+
             <div class="slideBox">
 
                 <div class="bar_title row">
@@ -39,28 +137,39 @@
                         </div>
 
                         <div class="right"> 
-                            <img class="icons" src="/img/icons/063 Undo.png" > 
+                            <img id="btn_disconnect" class="icons" src="/img/icons/063 Undo.png" > 
                         </div>  
                     </div>
                 </div>
 
 
                 <div class="bar_info row">
-                <div class="cell">
+                    <div class="cell">
 
-                        <div class="left">
-                            <img class="icons" src="/img/icons/002 User.png" >3 
+                            <div class="left">
+                                <img id="btn_userList" class="icons left" src="/img/icons/002 User.png" >
+
+                                
+                            </div>
+                            <p id="btn_userList_cnt"></p> 
+                            <div id="area_userList" style="display:none">
+                                    <div id="myid"></div>
+                                    <table id="userList" >
+                                    </table>
+                                </div>
+                       <!-- 
+                        <div class="right"> 
+                                <img class="icons" src="/img//icons/053 Preferences.png" > 
                         </div>
-
-                    <div class="right"> 
-                            <img class="icons" src="/img//icons/053 Preferences.png" > 
+                        -->
                     </div>
                 </div>
-                </div>
 
 
-                <div class="area_chat one-edge-shadow">  
+                <div id="area_chat" class="area_chat one-edge-shadow">  
 
+                    
+                    <!--
 
                     <div class="message-box">
                       <div class="picture left">
@@ -86,9 +195,9 @@
                         Hello, How are you? 
                         Hello, How are you? Hello, How are you? Hello, How are you? Hello, How are you?</pre>
                       </div>
-
-
                     </div>
+
+                    -->
 
 
 
@@ -103,10 +212,10 @@
                                 </span>
                             </div>
                             <div class="cell">
-                                <textarea placeholder="Type your message"></textarea> 
+                                <textarea id="msg"  placeholder="Type your message"></textarea> 
                             </div>
                             <div class="cell initial">
-                                <div class="btn right">
+                                <div id="sendBtn" class="btn right">
                                     <p>send</p>
                                 </div>
                             </div>
@@ -115,92 +224,7 @@
                 </div>
             </div> 
 
-            <div class="slideBox">
 
-                <div class="bar_title row">
-                    <div class="cell"> 
-                        <div class="left"> 
-                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
-                            <p class="title_txt icons">RoomName</p>
-                        </div>
-
-                        <div class="right"> 
-                            <img class="icons" src="/img/icons/063 Undo.png" > 
-                        </div>  
-                    </div>
-                </div>
-
-
-                <div class="bar_info row">
-                <div class="cell">
-         
-                </div>
-                </div>
-
-
-                <div class="area_chat one-edge-shadow">  
-
-
-
-
-
-
-                </div>
- 
-            </div> 
-
-            <div class="slideBox">
-
-                <div class="bar_title row">
-                    <div class="cell"> 
-                        <div class="left"> 
-                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
-                            <p class="title_txt icons">RoomName</p>
-                        </div>
-
-                        <div class="right"> 
-                            <img class="icons" src="/img/icons/063 Undo.png" > 
-                        </div>  
-                    </div>
-                </div>
-
-
-                <div class="bar_info row">
-                <div class="cell">
-         
-                </div>
-                </div>
-
-
-                <div class="area_chat one-edge-shadow">  
-
-
-
-
-
-
-                </div>
-
-                <div class="bar_input row">
-                    <div class="cell">
-                        <div class="row">
-                            <div class="cell" style="width: initial;">
-                                <span>
-                                    <img class="icons" src="/img//icons/081 Pen.png" > 
-                                </span>
-                            </div>
-                            <div class="cell">
-                                <textarea placeholder="Type your message"></textarea> 
-                            </div>
-                            <div class="cell initial">
-                                <div class="btn right">
-                                    <p>send</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>   
-                </div>
-            </div> 
 
             <!--
             <div class="slideBox">
@@ -220,9 +244,9 @@
 
 
                 <div class="bar_info row">
-                <div class="cell">
-         
-                </div>
+                    <div class="cell">
+             
+                    </div>
                 </div>
 
 
@@ -259,6 +283,12 @@
 
         </div>
     </div>
+
+<!--
+    <input type="button" value="login" onclick="move_slide(0)" />
+    <input type="button" value="list"  onclick="move_slide(1)" />
+    <input type="button" value="chat"  onclick="move_slide(2)" /> 
+-->
 
 </body>
 </html>
