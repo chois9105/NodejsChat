@@ -28,7 +28,7 @@ resize_chat();
  var socket = io.connect("http://"+location.host);
 
   $(document).on('click','.Room',function(){ 
-    var data = {"room":$(this).html()};
+    var data = {"room":$(this).attr("id")};
     socket.emit('ChangeRoom', data);
     move_slide(2); 
   });
@@ -78,7 +78,7 @@ resize_chat();
     //data.room_list
     $("#RoomList").html("");
     for(var i=0,j=data.room_list.length;i<j;i++){
-      $("#RoomList").append("<li class='Room' id='"+data.room_list[i].id+"'>"+data.room_list[i].name+"</li>");
+      $("#RoomList").append("<li class='Room' id='"+data.room_list[i]._id+"'>"+data.room_list[i].name+"</li>");
     }
   }); 
 

@@ -5,8 +5,10 @@ var public_dir = "./front",
     total_room_cnt=0,
     Rooms_list=[];
 
-var swig  = require('swig'),
+var ObjHelp=require('mongodb-objectid-helper'),
+    swig  = require('swig'),
     MongoClient = require('mongodb').MongoClient,
+    ObjectId = require('mongodb').ObjectID,
     express = require('express'),
     app = express(),
     io = require('socket.io').listen(app.listen(port));
@@ -48,21 +50,21 @@ var swig  = require('swig'),
 MongoClient.connect('mongodb://localhost:27017/ChatData', function(err, db) {
       if(err) throw err;
 
-      db.dropDatabase(function() { //remove collection when starting server
-      }); 
+      //db.dropDatabase(function() { //remove collection when starting server
+      //}); 
 
      var Room_collection = db.collection('Rooms');
      var Chat_collection = db.collection('Chats');
 
       /*collection.remove(function(err, result) { 
       });*/
-
+/*
     Room_collection.insert({"id":"1","name":"testRoom"}, function(docs) {   
         //Room_collection.count(function(err, count) {
         //}); 
     });  
     Room_collection.insert({"id":"1","name":"testRoom2"}, function(docs) { }); 
-
+*/
 
 
     // open login page
@@ -126,12 +128,12 @@ var clsSocket={};
         socket.on('CreateRoom', function (Data) {  
 
             Room_collection.find(Data).toArray(function(err, rows) { 
-                //res.send('<script>location.href="/Chat";</script>'); 
-                console.log('++++++++++++++++++++');
+                //res.send('<script>location.href="/Chat";</script>');  
                 console.log(rows);
             });
 
-            Room_collection.insert(Data, function(docs) {  
+            Room_collection.insert(Data, function(err,rec) {  
+                console.log(rec._id);
                 //get Room list from mongoDB
                 Room_collection.find().toArray(function(err, rows) { 
                     io.sockets.emit('send_room_list', { 
@@ -248,6 +250,7 @@ var clsSocket={};
 
         function disonnect(){
             socket.leave(current_room);
+            console.log("leave : "+current_room);
             /*
             delete clsSocket[socket.id];
             //get room's clients
@@ -260,8 +263,12 @@ var clsSocket={};
 
             // if room of no user
             if(cls.length<1){ 
+
                 //then remove room where mongodb
-                Room_collection.remove({"name":current_room}, function(docs) {   
+                //Room_collection.remove({"_id":{ '$in': [ ObjectId("current_room") ] }}, function(docs) {   
+                Room_collection.remove({'_id': { '$in': [ObjectId(current_room)] }}, function(err,docs) {   
+                    console.log("remove err : " + err);
+                    console.log("remove : " + docs);
                     //Room_collection.count(function(err, count) {
                     //});  
                     fnc_room_list();
