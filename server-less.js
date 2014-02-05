@@ -5,8 +5,7 @@ var public_dir = "./front",
     total_room_cnt=0,
     Rooms_list=[];
 
-var ObjHelp=require('mongodb-objectid-helper'),
-    swig  = require('swig'),
+var swig  = require('swig'),
     MongoClient = require('mongodb').MongoClient,
     ObjectId = require('mongodb').ObjectID,
     express = require('express'),
@@ -260,23 +259,26 @@ var clsSocket={};
                 cls.push({ 'id': client.id, 'nick': client.nickname });
             }); */
             var cls = fnc_user_list(socket.id);
-
-            // if room of no user
-            if(cls.length<1){ 
-
-                //then remove room where mongodb
-                //Room_collection.remove({"_id":{ '$in': [ ObjectId("current_room") ] }}, function(docs) {   
-                Room_collection.remove({'_id': { '$in': [ObjectId(current_room)] }}, function(err,docs) {   
-                    console.log("remove err : " + err);
-                    console.log("remove : " + docs);
-                    //Room_collection.count(function(err, count) {
-                    //});  
-                    fnc_room_list();
-                }); 
+            if(!current_room){
+                console.log("Not joined user out.");
             }else{
-            // send clients Array
-            io.sockets.in(current_room).emit('usrs', cls); //emit close
-           }
+                // if room of no user
+                if(cls.length<1){ 
+
+                    //then remove room where mongodb
+                    //Room_collection.remove({"_id":{ '$in': [ ObjectId("current_room") ] }}, function(docs) {   
+                    Room_collection.remove({'_id': { '$in': [ObjectId(current_room)] }}, function(err,docs) {   
+                        console.log("remove err : " + err);
+                        console.log("remove : " + docs);
+                        //Room_collection.count(function(err, count) {
+                        //});  
+                        fnc_room_list();
+                    }); 
+                }else{
+                // send clients Array
+                io.sockets.in(current_room).emit('usrs', cls); //emit close
+               }
+            }
         };
 
     }) //io.sockets.on('connection', function (socket) {

@@ -1,30 +1,28 @@
 
+
+
 function resize_chat(){
   var win = $(window);
-  var wh = win.height(),
-      ww = win.width(); 
-
-      //$("head").append("<style type='text/less'>.message-left {max-width : '"ww+"px'}</style>");
-      //$(".message-left").css("max-width",ww+"px");
-
-      $("body").css("margin","0px");
-      $("html").css("overflow","hidden");
-      /*
-      $("#frames").css({"height":wh+"px","width":"initial"});
-      $("#slide").css("width", ww*3.5 + "px");
-      $(".slideBox").css({"width":ww+ "px"});
+      fr = $("#frames");
+      //fr.css({"-webkit-transform":"translate("+(win.width()/2-fr.width()/2)+"px,"+(win.height()/2-fr.height()/2)+"px) scale("+win.width()/fr.width()+","+win.height()/fr.height()+")"});
+      // horizental resize
       
-      $("#frames").css({"height":wh+"px","width":"initial"});
-      //$("#slide").css("height", wh + "px");
-      //$(".slideBox").css({"height":wh+ "px"});
-      $(".area_login").css({"height":wh - ($(".bar_title").css("height").split("px")[0]) + "px"});
-      $(".area_Rooms").css({"height":wh - ($(".bar_title").css("height").split("px")[0]) + "px"});
-      $(".area_chat").css({"height":wh - (parseInt($(".bar_info").css("height").split("px")[0]) *3)-3 + "px"});
-      */
+      fr.css({"left":win.width()/2-fr.width()/2,
+        "transform":"scale("+win.width()/fr.width()+","+win.width()/fr.width()+")",
+        "-ms-transform":"scale("+win.width()/fr.width()+","+win.width()/fr.width()+")",
+        "-webkit-transform":"scale("+win.width()/fr.width()+","+win.width()/fr.width()+")"
+      }).css({"top":win.height()/2-fr.height()/2});
+    
 }
 
-$(function () {
+$(window).resize(function(){
 resize_chat();
+});
+
+
+$(function () {
+
+  resize_chat();
  var socket = io.connect("http://"+location.host);
 
   $(document).on('click','.Room',function(){ 
