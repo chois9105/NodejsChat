@@ -125,12 +125,12 @@ var clsSocket={};
 
         // create Room
         socket.on('CreateRoom', function (Data) {  
-
+/*
             Room_collection.find(Data).toArray(function(err, rows) { 
                 //res.send('<script>location.href="/Chat";</script>');  
                 console.log(rows);
             });
-
+*/
             Room_collection.insert(Data, function(err,rec) {  
                 console.log(rec._id);
                 //get Room list from mongoDB
@@ -148,9 +148,7 @@ var clsSocket={};
             current_room = data['MyRoom'] = Data.room;
             //join room
             socket.leave(null);
-            socket.join(data['MyRoom']);
-
-
+            socket.join(data['MyRoom']); 
             //get room's clients
             fnc_user_list();
 
@@ -188,12 +186,12 @@ var clsSocket={};
         socket.on('cts', function (client_data) {
             console.log(data['MyRoom']+" only ");
             //send msg
-            //socket.broadcast.to('room').emit('stc',data);
-            io.sockets.in(data['MyRoom']).emit('stc', client_data);
-            //to broadcast information to a certain room (excluding the client):
-            //socket.broadcast.to('room1').emit('function', 'data1', 'data2');
-            //to broadcast information globally:
-            //io.sockets.in('room1').emit('function', 'data1', 'data2');
+            //only room
+            //io.sockets.in(data['MyRoom']).emit('stc', client_data);
+            //to others
+            socket.broadcast.to(data['MyRoom']).emit('stc', client_data);
+            //only me 
+            socket.emit('stm', client_data);
         });
 
 

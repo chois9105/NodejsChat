@@ -28,6 +28,7 @@ $(function () {
   $(document).on('click','.Room',function(){ 
     var data = {"room":$(this).attr("id")};
     socket.emit('ChangeRoom', data);
+
     move_slide(2); 
   });
 
@@ -96,15 +97,16 @@ $(function () {
 
 //get msg
     socket.on('stc', function (client_data) {
-      
       $("#area_chat").append('<div class="message-box"><div class="picture left"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-left"><span>'+client_data.nick+'</span><pre>'+client_data.msg+'</pre></div></div>');
-
-    	//$("#area_chat").append("<tr><td class='chats-id'></td><td class='chats-name'><pre class='chats-name-pre'>"+client_data.nick+"</pre></td><td><pre>"+client_data.msg+"</pre></td></tr>");
     	$("#area_chat").scrollTo("100%",120);
-
-
-
     });
+
+    socket.on('stm', function (client_data) {
+      $("#area_chat").append('<div class="asdf"><div class="message-box right"><div class="picture right"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-right"><span>'+client_data.nick+'</span><pre>'+client_data.msg+'</pre></div></div></div>');
+      $("#area_chat").scrollTo("100%",120);
+    });
+
+                    
 
 
  //send btn click
