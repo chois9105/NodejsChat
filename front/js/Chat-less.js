@@ -30,13 +30,15 @@ $(function () {
     socket.emit('ChangeRoom', data);
 
     move_slide(2); 
+    $("#area_chat").html("");
+
   });
 
-    $("#btn_disconnect").click(function(){ 
-      var data = {"data":"data"};
-      socket.emit('leaveRoom');
-      move_slide(1);
-    });
+  $("#btn_disconnect").click(function(){ 
+    var data = {"data":"data"};
+    socket.emit('leaveRoom');
+    move_slide(1);
+  });
 
 // login btn 
     $("#btn_login").click(function(){
