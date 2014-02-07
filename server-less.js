@@ -1,6 +1,6 @@
 //test git 2
 var public_dir = "./front",
-    port=3000,
+    port=30000,
     total_usr_cnt=0,
     total_room_cnt=0,
     Rooms_list=[];
@@ -198,7 +198,7 @@ var clsSocket={};
         // client to server data
         socket.on('ctp', function (client_pdata) {
             //send msg 
-            socket.emit('stc', client_pdata);
+            socket.emit('stm', client_pdata);
             io.sockets.sockets[client_pdata.private].emit('stc', client_pdata);
         });
 

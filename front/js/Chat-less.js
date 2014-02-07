@@ -97,13 +97,13 @@ $(function () {
 
 //get msg
     socket.on('stc', function (client_data) {
-      $("#area_chat").append('<div class="message-box"><div class="picture left"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-left"><span>'+client_data.nick+'</span><pre>'+client_data.msg+'</pre></div></div>');
-    	$("#area_chat").scrollTo("100%",120);
+      $("#area_chat").append('<tr><td><div class="message-box"><div class="picture left"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-left"><span>'+client_data.nick+'</span><pre>'+client_data.msg+'</pre></div></div></td></tr>');
+    	$(".area_chat_div").scrollTo("110%",120);
     });
 
     socket.on('stm', function (client_data) {
-      $("#area_chat").append('<div class="asdf"><div class="message-box right"><div class="picture right"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-right"><span>'+client_data.nick+'</span><pre>'+client_data.msg+'</pre></div></div></div>');
-      $("#area_chat").scrollTo("100%",120);
+      $("#area_chat").append('<tr><td><div class="asdf"><div class="message-box right"><div class="picture right"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-right"><span>'+client_data.nick+'</span><pre>'+client_data.msg+'</pre></div></div></div></td></tr>');
+      $(".area_chat_div").scrollTo("110%",120);
     });
 
                     
