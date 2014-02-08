@@ -99,16 +99,44 @@ $(function () {
 
 //get msg
     socket.on('stc', function (client_data) {
-      $("#area_chat").append('<tr><td><div class="message-box"><div class="picture left"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-left"><span>'+client_data.nick+'</span><pre>'+client_data.msg+'</pre></div></div></td></tr>');
-    	$(".area_chat_div").scrollTo("110%",120);
+      $("#area_chat").append('<tr><td><div class="message-box"><div class="picture left"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-left"><span style="display:block;">'+client_data.nick+'</span><pre>'+client_data.msg+'</pre></div></div></td></tr>');
+    	$(".area_chat_div").scrollTo("110%",180);
     });
 
     socket.on('stm', function (client_data) {
-      $("#area_chat").append('<tr><td><div class="asdf"><div class="message-box right"><div class="picture right"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-right"><span>'+client_data.nick+'</span><pre>'+client_data.msg+'</pre></div></div></div></td></tr>');
-      $(".area_chat_div").scrollTo("110%",120);
+      $("#area_chat").append('<tr><td><div class="asdf"><div class="message-box right"><div class="picture right"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-right"><span style="display:block;">'+client_data.nick+'</span><pre>'+client_data.msg+'</pre></div></div></div></td></tr>');
+      $(".area_chat_div").scrollTo("110%",180);
     });
+ 
+    socket.on('stl', function (client_data) {
+      var img_src = "http://maps.googleapis.com/maps/api/staticmap?center="+client_data.lat+","+client_data.long+"&zoom=18&size=200x200&sensor=false&markers="+client_data.lat+","+client_data.long;
 
-                    
+      $("#area_chat").append('<tr><td><div class="message-box"><div class="picture left"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-left"><table><tr><td><span style="display:block;">'+client_data.nick+'</span></td></tr><tr><td><img src="'+img_src+'"></td></tr></table></div></div></td></tr>');
+      $(".area_chat_div").scrollTo( {top:'+=300px', left:''}, 180 );
+    }); 
+    socket.on('stlm', function (client_data) {
+      var img_src = "http://maps.googleapis.com/maps/api/staticmap?center="+client_data.lat+","+client_data.long+"&zoom=18&size=200x200&sensor=false&markers="+client_data.lat+","+client_data.long;
+      $("#area_chat").append('<tr><td><div class="asdf"><div class="message-box right"><div class="picture right"><img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" ><span class="time"></span></div><div class="message-right"><table><tr><td><span clas="right" style="display:block;">'+client_data.nick+'</span></td></tr><tr><td><img src="'+img_src+'"></td></tr></table></div></div></div></td></tr>');
+      $(".area_chat_div").scrollTo( {top:'+=300px', left:''}, 180 );
+    }); 
+                      
+  $("#my_location").click(function(){
+
+      if (!navigator.geolocation){
+        alert('Geolocation is not supported by your browser');
+        return;
+      }
+      function success(position) {
+        var geo = {"nick":$("#myid").html(),"lat":position.coords.latitude,"long":position.coords.longitude};
+        socket.emit('ctl', geo);
+      };
+      function error() {
+        alert('Unable to retrieve your location');
+      };
+      //output.innerHTML = "<p>Locating…</p>";
+      navigator.geolocation.getCurrentPosition(success, error);
+
+  });
 
 
  //send btn click
@@ -157,3 +185,4 @@ var move_slide  = function(num){
         // Animation complete.
     });
 } 
+ 

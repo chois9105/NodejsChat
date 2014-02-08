@@ -124,14 +124,14 @@ var clsSocket={};
 
 
         // create Room
-        socket.on('CreateRoom', function (Data) {  
+        socket.on('CreateRoom', function (CreateRoom_Data) {  
 /*
             Room_collection.find(Data).toArray(function(err, rows) { 
                 //res.send('<script>location.href="/Chat";</script>');  
                 console.log(rows);
             });
 */
-            Room_collection.insert(Data, function(err,rec) {  
+            Room_collection.insert(CreateRoom_Data, function(err,rec) {  
                 console.log(rec._id);
                 //get Room list from mongoDB
                 Room_collection.find().toArray(function(err, rows) { 
@@ -144,14 +144,21 @@ var clsSocket={};
 
 
         // change Room
-        socket.on('ChangeRoom', function (Data) { 
-            current_room = data['MyRoom'] = Data.room;
+        socket.on('ChangeRoom', function (ChangeRoom_Data) { 
+            current_room = ChangeRoom_Data['MyRoom'] = ChangeRoom_Data.room;
             //join room
             socket.leave(null);
-            socket.join(data['MyRoom']); 
+            socket.join(ChangeRoom_Data['MyRoom']); 
             //get room's clients
             fnc_user_list();
 
+        });
+
+
+        // change Room
+        socket.on('ctl', function (Loc_Data) { 
+            socket.emit('stlm', Loc_Data);
+            socket.broadcast.to(data['MyRoom']).emit('stl', Loc_Data);
         });
 
 
