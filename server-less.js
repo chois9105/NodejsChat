@@ -145,10 +145,10 @@ var clsSocket={};
 
         // change Room
         socket.on('ChangeRoom', function (ChangeRoom_Data) { 
-            current_room = ChangeRoom_Data['MyRoom'] = ChangeRoom_Data.room;
+            current_room = ChangeRoom_Data.room;
             //join room
             socket.leave(null);
-            socket.join(ChangeRoom_Data['MyRoom']); 
+            socket.join(current_room); 
             //get room's clients
             fnc_user_list();
 
@@ -158,7 +158,7 @@ var clsSocket={};
         // change Room
         socket.on('ctl', function (Loc_Data) { 
             socket.emit('stlm', Loc_Data);
-            socket.broadcast.to(data['MyRoom']).emit('stl', Loc_Data);
+            socket.broadcast.to(current_room).emit('stl', Loc_Data);
         });
 
 
@@ -181,7 +181,7 @@ var clsSocket={};
             });
             // send clients Array 
             //io.sockets.sockets[""].emit('usrs', cls); //emit close
-            io.sockets.in(data['MyRoom']).emit('usrs', cls); //emit close
+            //io.sockets.in(data['MyRoom']).emit('usrs', cls); //emit close
             console.log(cls);
 
             console.log('---------------------------');
@@ -191,12 +191,12 @@ var clsSocket={};
 
         // client to server data
         socket.on('cts', function (client_data) {
-            console.log(data['MyRoom']+" only ");
+            console.log(current_room+" only ");
             //send msg
             //only room
             //io.sockets.in(data['MyRoom']).emit('stc', client_data);
             //to others
-            socket.broadcast.to(data['MyRoom']).emit('stc', client_data);
+            socket.broadcast.to(current_room).emit('stc', client_data);
             //only me 
             socket.emit('stm', client_data);
         });
