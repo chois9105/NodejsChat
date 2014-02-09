@@ -5,13 +5,26 @@ function resize_chat(){
   var win = $(window);
       fr = $("#frames");
       //fr.css({"-webkit-transform":"translate("+(win.width()/2-fr.width()/2)+"px,"+(win.height()/2-fr.height()/2)+"px) scale("+win.width()/fr.width()+","+win.height()/fr.height()+")"});
-      // horizental resize
-      
-      fr.css({"left":win.width()/2-fr.width()/2,
+      // horizental resize 
+
+
+
+
+      if(win.width()/fr.width() > 1.3){
+        fr.css({"left":win.width()/2-fr.width()/2,
+          "transform":"scale("+1.3+","+1.3+")",
+          "-ms-transform":"scale("+1.3+","+1.3+")",
+          "-webkit-transform":"scale("+1.3+","+1.3+")"
+        }).css({"top":win.height()/2-fr.height()/2});
+      }else{
+        fr.css({"left":win.width()/2-fr.width()/2,
         "transform":"scale("+win.width()/fr.width()+","+win.width()/fr.width()+")",
         "-ms-transform":"scale("+win.width()/fr.width()+","+win.width()/fr.width()+")",
         "-webkit-transform":"scale("+win.width()/fr.width()+","+win.width()/fr.width()+")"
       }).css({"top":win.height()/2-fr.height()/2});
+      }
+ 
+ 
     
 }
 
