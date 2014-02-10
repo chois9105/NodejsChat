@@ -57,12 +57,22 @@
 
  
 
+ 
+
                 <div class="area_login one-edge-shadow row">   
 
                 <table>
                 <tr><td>
-                    <canvas style="border:1px solid red"></canvas>
+                    <canvas id="canvas" style="border:1px solid red;" width="160" height="120"></canvas>
                 </td></tr>
+                <tr><td>
+                    <video id="video" width="160" height="120" autoplay></video>
+                </td></tr>
+                <tr>
+                    <td>
+                        <button id="snap" >Snap Photo</button>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <input type="text" id="txt_nick" class="" />    
