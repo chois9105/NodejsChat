@@ -38,7 +38,7 @@ $(function () {
   resize_chat();
  var socket = io.connect("http://"+location.host);
 
-  $(document).on('click','.Room',function(){ 
+  $(document).on('click touchstart','.Room',function(){ 
     var data = {"room":$(this).attr("id")};
     socket.emit('ChangeRoom', data);
 
@@ -175,7 +175,7 @@ $(function () {
     $("#"+$(this).attr('name')).hide('fast');
   });
 
-  $(document).on('click','.btnPrivate',function(){
+  $(document).on('click touchstart','.btnPrivate',function(){
     $("#sendWho").html("To "+$(this).attr("id"));
 
     var data={};
