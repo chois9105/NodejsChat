@@ -2,6 +2,7 @@
 <head>
     <title></title> 
     <link rel="stylesheet/less" type="text/css" href="style.less" />
+    <link rel="stylesheet/less" type="text/css" href="btn.less" />
     <script src="less-1.6.1.min.js"></script> 
     <script src="/js/librarys/jq10.2.js"></script>
     <script src="/js/librarys/bootstrap/js/bootstrap.min.js"></script> 
@@ -59,30 +60,16 @@
 
  
 
-                <div class="area_login one-edge-shadow row">   
+                <div class="area_login one-edge-shadow row" style="height: 396px;">   
 
-                <table>
-                <tr><td>
-                    <canvas id="canvas" style="border:1px solid red;" width="160" height="120"></canvas>
-                </td></tr>
-                <tr><td>
-                    <video id="video" width="160" height="120" autoplay></video>
-                </td></tr>
+                <table>  
                 <tr>
-                    <td>
-                        <button id="snap" >Snap Photo</button>
+                    <td> 
+                        <input type="text"  id="txt_nick" placeholder="Username">    
                     </td>
-                </tr>
+                </tr> 
                 <tr>
-                    <td>
-                        <input type="text" id="txt_nick" class="" />    
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div id="btn_login" class="btn">
-                            <p style="height:100%">send</p>
-                        </div>
+                    <td> <input type="submit" style="width:240px"  id="btn_login" value="Get in there"> 
                     </td>
                 </tr>
                 </table> 
@@ -129,9 +116,8 @@
                                 <textarea id="RoomName" placeholder="Type your RoomName"></textarea> 
                             </div>
                             <div class="cell initial"  name="create_room_box" style="display:none">
-                                <div id="add_room" class="btn right">
-                                    <p>Create</p>
-                                </div>
+
+                                    <input type="submit" id="add_room"  value="create"  class="btn right" style="width: 60px;"> 
                             </div>
 
                         </div>
@@ -234,9 +220,8 @@
                                 <textarea id="msg"  placeholder="Type your message"></textarea> 
                             </div>
                             <div class="cell initial">
-                                <div id="sendBtn" class="btn right">
-                                    <p>send</p>
-                                </div>
+
+                            <input type="submit" id="sendBtn"  class="btn right" value="send" style="width: 60px;"> 
                             </div>
                         </div>
                     </div>   
