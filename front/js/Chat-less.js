@@ -105,7 +105,7 @@ $(function () {
   		var id=data[i].id,
   		    nick=data[i].nick;
       if(socket.socket.sessionid != id)
-  		$("#userList").append("<tr><td class='userList-name' name='"+id+"'>"+nick+"<div id='"+id+"' class='btnPrivate'>private</div></td></tr>");
+  		$("#userList").append("<tr><td class='userList-name' name='"+id+"'>"+nick+"<div id='"+id+"' style='display:none' class='btnPrivate'>private</div></td></tr>");
   	}
     $("#btn_userList_cnt").html(data.length);
   }); 
