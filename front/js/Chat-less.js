@@ -57,6 +57,15 @@ $(function () {
     $("#btn_login").click(function(){
       //var nick = Math.floor((Math.random()*100000)+1);
       var nick = $("#txt_nick").val();
+<<<<<<< HEAD
+=======
+      if(nick === ""){
+        alert('Insert nickname.');
+        return;
+      }
+
+
+>>>>>>> 91129cfdcd1bebb9ce4bd905936011b081abc2be
       $("#myid").html(nick);
       socket.emit('ctsSetNick', { nick: nick }); 
 
@@ -72,6 +81,13 @@ $(function () {
 
     // add room btn
     $("#add_room").click(function(){ 
+<<<<<<< HEAD
+=======
+      if($("#RoomName").val() === ""){
+        alert('Insert roomname.');
+        return;
+      }
+>>>>>>> 91129cfdcd1bebb9ce4bd905936011b081abc2be
       var RoomData = {"id":"1","name":$("#RoomName").val()};
       socket.emit('CreateRoom', RoomData);
       $("#toggle_room_box, p[name='toggle_room_box']").click();
@@ -105,7 +121,11 @@ $(function () {
   		var id=data[i].id,
   		    nick=data[i].nick;
       if(socket.socket.sessionid != id)
+<<<<<<< HEAD
   		$("#userList").append("<tr><td class='userList-name' name='"+id+"'>"+nick+"<div id='"+id+"' style='display:none' class='btnPrivate'>private</div></td></tr>");
+=======
+  		$("#userList").append("<tr><td class='userList-name' name='"+id+"'>"+nick+"<div id='"+id+"' class='btnPrivate'>private</div></td></tr>");
+>>>>>>> 91129cfdcd1bebb9ce4bd905936011b081abc2be
   	}
     $("#btn_userList_cnt").html(data.length);
   }); 

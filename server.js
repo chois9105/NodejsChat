@@ -34,7 +34,13 @@ var swig  = require('swig'),
     // NOTE: You should always cache templates in a production environment.
     // Don't leave both of these to `false` in production!
     app.get('/', function (req, res) {
+<<<<<<< HEAD
       res.send('<script>location.href="/login";</script>');
+=======
+        var d=new Date();
+      console.log("someone comes! - "+d);
+      res.send('<script>location.href="/less";</script>');
+>>>>>>> 91129cfdcd1bebb9ce4bd905936011b081abc2be
     });
 
     /* less test
