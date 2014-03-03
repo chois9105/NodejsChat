@@ -1,0 +1,298 @@
+<html>
+<head>
+    <title></title> 
+    <link rel="stylesheet/less" type="text/css" href="style.less" />
+    <link rel="stylesheet/less" type="text/css" href="btn.less" />
+    <script src="less-1.6.1.min.js"></script> 
+    <script src="/js/librarys/jq10.2.js"></script>
+    <script src="/js/librarys/bootstrap/js/bootstrap.min.js"></script> 
+    <script src="/js/librarys/socket.io.min.js"></script>
+    <script src="/js/librarys/scrollTo.js"></script>
+    <script src="/js/Chat-less.js"></script> 
+ 
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+ 
+<script type="text/javascript">
+
+    less = {
+        env: "development", // or "production"
+        async: false,       // load imports async
+        fileAsync: false,   // load imports async when in a page under
+                            // a file protocol
+        poll: 1000,         // when in watch mode, time in ms between polls
+        functions: {},      // user functions, keyed by name
+        dumpLineNumbers: "comments", // or "mediaQuery" or "all"
+        relativeUrls: false,// whether to adjust url's to be relative
+                            // if false, url's are already relative to the
+                            // entry less file
+        rootpath: ":/a.com/"// a path to add on to the start of every url
+                            //resource
+    };
+</script> 
+
+
+</head>
+<body> 
+
+    <div id="frames">
+        <div id="slide">
+
+
+
+            <div class="slideBox">
+
+                <div class="bar_title row">
+                    <div class="cell"> 
+                        <div class="left"> 
+                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
+                            <p class="title_txt icons">Login</p>
+                        </div>
+                        <!--
+                        <div class="right"> 
+                            <img class="icons" src="/img/icons/063 Undo.png" > 
+                        </div>  
+                        -->
+                    </div>
+                </div>
+
+ 
+
+ 
+
+                <div class="area_login one-edge-shadow row" style="height: 396px;">   
+
+                <table>  
+                <tr>
+                    <td> 
+                        <input type="text"  id="txt_nick" placeholder="Username">    
+                    </td>
+                </tr> 
+                <tr>
+                    <td> <input type="submit" style="width:240px"  id="btn_login" value="Get in there"> 
+                    </td>
+                </tr>
+                </table> 
+
+                </div>
+            </div> 
+
+
+
+
+
+            <div class="slideBox">
+
+                <div class="bar_title row">
+                    <div class="cell"> 
+                        <div class="left"> 
+                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
+                            <p class="title_txt icons">Rooms</p>
+                        </div>
+                        
+                        <div class="right"> 
+                            <img class="icons" src="/img/icons/063 Undo.png" onclick="move_slide(0)"> 
+                        </div>  
+                        
+                    </div>
+                </div> 
+
+
+                <div class="bar_input row add_room_info">
+                   <div class="cell">
+                        <div class="row">
+                            <div class="cell" style="width: initial;">
+                                <span>
+                                    <img id="toggle_room_box" class="icons" src="/img//icons/081 Pen.png"> 
+                                </span>
+                            </div>
+
+                            <div class="cell" name="create_room_text">
+                             <p name="toggle_room_box">Create New Room + </p>
+                            </div>
+
+
+                            <div class="cell" name="create_room_box" style="display:none">
+                                <textarea id="RoomName" placeholder="Type your RoomName"></textarea> 
+                            </div>
+                            <div class="cell initial"  name="create_room_box" style="display:none">
+
+                                    <input type="submit" id="add_room"  value="create"  class="btn right" style="width: 60px;"> 
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="area_Rooms one-edge-shadow">   
+
+                    <ul id="RoomList" class="RoomList">
+                    </ul>
+                </div>
+            </div> 
+
+
+
+            <div class="slideBox">
+
+                <div class="bar_title row">
+                    <div class="cell"> 
+                        <div class="left"> 
+                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
+                            <p class="title_txt icons">RoomName</p>
+                        </div>
+
+                        <div class="right"> 
+                            <img id="btn_disconnect" class="icons" src="/img/icons/063 Undo.png" > 
+                        </div>  
+                    </div>
+                </div>
+
+
+                <div class="bar_info row">
+                    <div class="cell">
+
+                            <div class="left">
+                                <img id="btn_userList" class="icons left" src="/img/icons/002 User.png" >
+
+                                
+                            </div>
+                            <p id="btn_userList_cnt"></p> 
+                            <div id="area_userList" style="display:none">
+                                    <div id="myid"></div>
+                                    <table id="userList" >
+                                    </table>
+                                </div>
+                       <!-- 
+                        <div class="right"> 
+                                <img class="icons" src="/img//icons/053 Preferences.png" > 
+                        </div>
+                        -->
+                    </div>
+                </div>
+
+                <div class="area_chat_div">
+                <table id="area_chat" class="area_chat one-edge-shadow">
+                    <!--
+
+                    <div class="message-box">
+                      <div class="picture left">
+                        <img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" >
+                        <span class="time">abc</span>
+                      </div>
+                      <div class="message-left">
+                        <span>Whoami</span>
+                        <pre>Hello, How are you? Hello, How are you? 
+                        Hello, How are you? 
+                        Hello, How are you? Hello, How are you? Hello, How are you? Hello, How are you?</pre>
+                      </div>
+                    </div>
+
+                    <div class="message-box right">
+                      <div class="picture right">
+                        <img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" >
+                        <span class="time">abc</span>
+                      </div>
+                      <div class="message-right">
+                        <span>Whoami</span>
+                        <pre>Hello, How are you? Hello, How are you? 
+                        Hello, How are you? 
+                        Hello, How are you? Hello, How are you? Hello, How are you? Hello, How are you?</pre>
+                      </div>
+                    </div>
+
+                    -->
+                </table>
+                </div>
+
+
+
+                <div class="bar_input row">
+                    <div class="cell">
+                        <div class="row">
+                            <div class="cell" style="width: initial;">
+                                <span id="my_location">
+                                    <img class="icons" src="/img//icons/079 Pin2.png" > 
+                                </span>
+                            </div>
+                            <div class="cell">
+                                <textarea id="msg"  placeholder="Type your message"></textarea> 
+                            </div>
+                            <div class="cell initial">
+
+                            <input type="submit" id="sendBtn"  class="btn right" value="send" style="width: 60px;"> 
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div> 
+
+
+
+            <!--
+            <div class="slideBox">
+
+                <div class="bar_title row">
+                    <div class="cell"> 
+                        <div class="left"> 
+                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
+                            <p class="title_txt icons">RoomName</p>
+                        </div>
+
+                        <div class="right"> 
+                            <img class="icons" src="/img/icons/063 Undo.png" > 
+                        </div>  
+                    </div>
+                </div>
+
+
+                <div class="bar_info row">
+                    <div class="cell">
+             
+                    </div>
+                </div>
+
+
+                <div class="area_chat one-edge-shadow">  
+
+
+
+
+
+
+                </div>
+
+                <div class="bar_input row">
+                    <div class="cell">
+                        <div class="row">
+                            <div class="cell" style="width: initial;">
+                                <span>
+                                    <img class="icons" src="/img//icons/081 Pen.png" > 
+                                </span>
+                            </div>
+                            <div class="cell">
+                                <textarea placeholder="Type your message"></textarea> 
+                            </div>
+                            <div class="cell initial">
+                                <div class="btn right">
+                                    <p>send</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div> 
+            -->
+
+        </div>
+    </div>
+
+<!--
+    <input type="button" value="login" onclick="move_slide(0)" />
+    <input type="button" value="list"  onclick="move_slide(1)" />
+    <input type="button" value="chat"  onclick="move_slide(2)" /> 
+-->
+
+</body>
+</html>
