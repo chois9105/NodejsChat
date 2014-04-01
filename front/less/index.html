@@ -1,16 +1,20 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title></title> 
-    <link rel="stylesheet/less" type="text/css" href="style.less" />
-    <link rel="stylesheet/less" type="text/css" href="btn.less" />
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/full-slider.css">
     <script src="less-1.6.1.min.js"></script> 
     <script src="/js/librarys/jq10.2.js"></script>
-    <script src="/js/librarys/bootstrap/js/bootstrap.min.js"></script> 
+    <script src="/js/librarys/bootstrap.js"></script> 
     <script src="/js/librarys/socket.io.min.js"></script>
     <script src="/js/librarys/scrollTo.js"></script>
     <script src="/js/Chat-less.js"></script> 
  
 <meta name="apple-mobile-web-app-capable" content="yes" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
  
 <script type="text/javascript">
@@ -31,14 +35,159 @@
     };
 </script> 
 
-
 </head>
 <body> 
 
+<!--
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid a">
+        <div class="navbar-header">
+    -->    <!-- mobile size option button at the right top-->
+    <!--       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button> 
+          <a class="navbar-brand" href="#">NodejsChat</a>    
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+		<form class="form" role="form">
+			<h2 class="form-signin-heading">Please login</h2>
+			<input class="form-control" type="text" id="txt_nick" placeholder="Username" />
+			<button class="btn btn-lg btn-primary btn-block" id="btn_login" type="submit">Get in there</button>
+	   	</form>
+
+		<form class="form" role="form">
+			<h2 class="form-signin-heading">Please loiiigin</h2>
+			<input class="form-control" type="text" id="txt_nick" placeholder="Username" />
+			<button class="btn btn-lg btn-primary btn-block" id="btn_login" type="submit">Get in there</button>
+	   	</form>    
+</div>
+
+-->
+
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Xyfreid</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">theme1</a>
+                    </li>
+                    <li><a href="#">theme2</a>
+                    </li>
+                    <li><a href="#">theme3</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div id="myCarousel" class="carousel slide">
+        
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active container">
+            	<form class="form" role="form">
+	            	<div class="form-group">
+						<h2 class="form-signin-heading">Please login</h2>
+						<input class="form-control" type="text" id="txt_nick" placeholder="Username" />
+						<button class="btn btn-lg btn-primary btn-block" id="btn_login" type="submit">Get in there</button>
+				   	</div>
+			   	</form>
+            </div>
+
+            <div class="item container-fluid">
+           
+			
+			<div class="col-lg-6">
+				<div class="input-group">
+			    	<span class="input-group-addon">
+			    		<img id="toggle_room_box" class="icons" src="/img//icons/081 Pen.png"> 
+			    	</span>
+			      	<input type="text" id="RoomName" class="form-control" placeholder="Type your RoomName">
+			      	<span class="input-group-btn">
+			        	<button type="submit" id="add_room" class="btn btn-default">Create!</button>
+			      </span>	      
+			    </div>
+			</div>
+			
+			<hr />
+			
+			<div class="area_Rooms container-fluid">
+				<div id="RoomList" class="RoomList list-group">
+				</div>
+			</div>
+
+            </div>
+
+            <div class="item container-fluid">
+            	
+            	<div class="row container-fluid">
+    	        	<button type="button" class="btn btn-default btn-lg col-xs-1">
+  						<span class="glyphicon glyphicon-user"></span> 5
+  						<!-- conunt by user... current hard coding-->
+					</button>	
+            	</div>
+
+               
+
+                <div class="row container-fluid">
+
+					<div class="input-group">
+					<span class="input-group-addon"><span id="my_location" class="glyphicon glyphicon-map-marker"></span></span>
+					  <input type="text" id="msg" class="form-control" placeholder="Type your message">
+					    <span class="input-group-btn">   	        
+        	            <button type="submit" id="sendBtn" class="btn btn-primary" value="send">send</button>
+		                </span>
+					</div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev" >
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </div>
+
+
+
+
+
+
+
+
+
+
+            
+
+<!--
     <div id="frames">
         <div id="slide">
-
-
 
             <div class="slideBox">
 
@@ -48,11 +197,6 @@
                             <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
                             <p class="title_txt icons">Login</p>
                         </div>
-                        <!--
-                        <div class="right"> 
-                            <img class="icons" src="/img/icons/063 Undo.png" > 
-                        </div>  
-                        -->
                     </div>
                 </div>
 
@@ -164,49 +308,11 @@
                                     <table id="userList" >
                                     </table>
                                 </div>
-                       <!-- 
-                        <div class="right"> 
-                                <img class="icons" src="/img//icons/053 Preferences.png" > 
-                        </div>
-                        -->
+
                     </div>
                 </div>
 
-                <div class="area_chat_div">
-                <table id="area_chat" class="area_chat one-edge-shadow">
-                    <!--
-
-                    <div class="message-box">
-                      <div class="picture left">
-                        <img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" >
-                        <span class="time">abc</span>
-                      </div>
-                      <div class="message-left">
-                        <span>Whoami</span>
-                        <pre>Hello, How are you? Hello, How are you? 
-                        Hello, How are you? 
-                        Hello, How are you? Hello, How are you? Hello, How are you? Hello, How are you?</pre>
-                      </div>
-                    </div>
-
-                    <div class="message-box right">
-                      <div class="picture right">
-                        <img src="https://lh3.googleusercontent.com/-QDJ4kAyQVz0/AAAAAAAAAAI/AAAAAAAAAAA/M7wANYrPEmE/s46-c-k-no/photo.jpg" >
-                        <span class="time">abc</span>
-                      </div>
-                      <div class="message-right">
-                        <span>Whoami</span>
-                        <pre>Hello, How are you? Hello, How are you? 
-                        Hello, How are you? 
-                        Hello, How are you? Hello, How are you? Hello, How are you? Hello, How are you?</pre>
-                      </div>
-                    </div>
-
-                    -->
-                </table>
-                </div>
-
-
+               
 
                 <div class="bar_input row">
                     <div class="cell">
@@ -228,70 +334,8 @@
                 </div>
             </div> 
 
-
-
-            <!--
-            <div class="slideBox">
-
-                <div class="bar_title row">
-                    <div class="cell"> 
-                        <div class="left"> 
-                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
-                            <p class="title_txt icons">RoomName</p>
-                        </div>
-
-                        <div class="right"> 
-                            <img class="icons" src="/img/icons/063 Undo.png" > 
-                        </div>  
-                    </div>
-                </div>
-
-
-                <div class="bar_info row">
-                    <div class="cell">
-             
-                    </div>
-                </div>
-
-
-                <div class="area_chat one-edge-shadow">  
-
-
-
-
-
-
-                </div>
-
-                <div class="bar_input row">
-                    <div class="cell">
-                        <div class="row">
-                            <div class="cell" style="width: initial;">
-                                <span>
-                                    <img class="icons" src="/img//icons/081 Pen.png" > 
-                                </span>
-                            </div>
-                            <div class="cell">
-                                <textarea placeholder="Type your message"></textarea> 
-                            </div>
-                            <div class="cell initial">
-                                <div class="btn right">
-                                    <p>send</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>   
-                </div>
-            </div> 
-            -->
-
         </div>
     </div>
-
-<!--
-    <input type="button" value="login" onclick="move_slide(0)" />
-    <input type="button" value="list"  onclick="move_slide(1)" />
-    <input type="button" value="chat"  onclick="move_slide(2)" /> 
 -->
 
 </body>

@@ -1,0 +1,25 @@
+html, body {
+	height:100%;
+}
+
+.carousel,
+.item,
+.active {
+	height:100%;
+	margin-top: 40px;
+}
+
+.carousel-inner {
+	height:100%;
+}
+
+.fill {
+	width:100%;
+	height:100%;
+	background-position: center;
+	background-size: cover;
+}
+
+.section {
+	margin: 50px 0;
+}

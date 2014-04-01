@@ -42,7 +42,7 @@ $(function () {
     var data = {"room":$(this).attr("id")};
     socket.emit('ChangeRoom', data);
 
-    move_slide(2); 
+    move_slide('next'); 
     $("#area_chat").html("");
 
   });
@@ -54,7 +54,8 @@ $(function () {
   });
 
 // login btn 
-    $("#btn_login").click(function(){
+    $("#btn_login").click(function(e){
+      e.preventDefault();
       //var nick = Math.floor((Math.random()*100000)+1);
       var nick = $("#txt_nick").val(); 
       if(nick === ""){
@@ -65,8 +66,8 @@ $(function () {
  
       $("#myid").html(nick);
       socket.emit('ctsSetNick', { nick: nick }); 
-
-      move_slide(1); 
+  
+      move_slide('next'); 
     });
 
     // toggle room name box 
@@ -102,7 +103,7 @@ $(function () {
     //data.room_list
     $("#RoomList").html("");
     for(var i=0,j=data.room_list.length;i<j;i++){
-      $("#RoomList").append("<li class='Room' id='"+data.room_list[i]._id+"'>"+data.room_list[i].name+"</li>");
+      $("#RoomList").append("<a class='Room list-group-item' id='"+data.room_list[i]._id+"'>"+data.room_list[i].name+"</a>");
     }
   }); 
 
@@ -198,12 +199,19 @@ $(function () {
 
 }) 
 
+var move_slide = function(direction){
 
-var move_slide  = function(num){
-    $( "#slide" ).animate({
-        marginLeft: num * (-$(".slideBox").css("width").split("px")[0]) + "px"
-        }, 500, function() {
-        // Animation complete.
-    });
-} 
+  if(direction == 'next'){
+    $('a.right').click();    
+  }else if(direction == 'prev'){
+    $('a.left').click();
+  }else{
+    return;
+  }
+
+}
+
+
+
+
  
