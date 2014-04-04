@@ -39,39 +39,7 @@
 </head>
 <body> 
 
-<!--
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid a">
-        <div class="navbar-header">
-    -->    <!-- mobile size option button at the right top-->
-    <!--       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button> 
-          <a class="navbar-brand" href="#">NodejsChat</a>    
-        </div>
-    </div>
-</div>
-
-
-<div class="container-fluid">
-		<form class="form" role="form">
-			<h2 class="form-signin-heading">Please login</h2>
-			<input class="form-control" type="text" id="txt_nick" placeholder="Username" />
-			<button class="btn btn-lg btn-primary btn-block" id="btn_login" type="submit">Get in there</button>
-	   	</form>
-
-		<form class="form" role="form">
-			<h2 class="form-signin-heading">Please loiiigin</h2>
-			<input class="form-control" type="text" id="txt_nick" placeholder="Username" />
-			<button class="btn btn-lg btn-primary btn-block" id="btn_login" type="submit">Get in there</button>
-	   	</form>    
-</div>
-
--->
-
-    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+     <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -149,52 +117,27 @@
                                 </button>
                                 <ul class="dropdown-menu slidedown">
                                     <li><a href="#"><span class="glyphicon glyphicon-refresh">
-                                    </span>theme1 or man1</a></li>
+                                    </span>man1</a></li>
                                     <li><a href="#"><span class="glyphicon glyphicon-ok-sign">
-                                    </span>theme2 or man2</a></li>
+                                    </span>man2</a></li>
                                     <li><a href="#"><span class="glyphicon glyphicon-remove">
-                                    </span>theme3 or man3</a></li>
-                                    <li><a href="#"><span class="glyphicon glyphicon-time"></span>
-                                        theme4 or man4</a></li>
+                                    </span>man3</a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-time">
+                                    </span>man4</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#"><span class="glyphicon glyphicon-off"></span>
-                                        Sign Out</a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-off">
+                                    </span>Sign Out</a></li>
                                 </ul>
                             </div>                           
                         </div>
 
                 <div class="panel-body">
-                    <ul class="chat">
-                        <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                        <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar" class="img-circle">
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-            
-                    </ul>
+                    <div class="area_chat_div">
+                        <ul id="area_chat" class="chat">
+                            <!-- chat message-->
+                        </ul>
+                    </div>
+                   
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
@@ -210,183 +153,25 @@
 
 
 
-                    </div>
-
-	
+                    </div>	
             	</div>
-
-
-
             </div>
         </div>
 
 
-
+        <!-- id saved-->
+        <div id="myid" style="display:none"></div>
         <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="display:none">
             <span class="icon-prev"></span>
         </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <a class="right carousel-control" href="#myCarousel" data-slide="next" style="display:none">
             <span class="icon-next"></span>
         </a>
     </div>
 
 
 
-            
-
-<!--
-    <div id="frames">
-        <div id="slide">
-
-            <div class="slideBox">
-
-                <div class="bar_title row">
-                    <div class="cell"> 
-                        <div class="left"> 
-                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
-                            <p class="title_txt icons">Login</p>
-                        </div>
-                    </div>
-                </div>
-
- 
-
- 
-
-                <div class="area_login one-edge-shadow row" style="height: 396px;">   
-
-                <table>  
-                <tr>
-                    <td> 
-                        <input type="text"  id="txt_nick" placeholder="Username">    
-                    </td>
-                </tr> 
-                <tr>
-                    <td> <input type="submit" style="width:240px"  id="btn_login" value="Get in there"> 
-                    </td>
-                </tr>
-                </table> 
-
-                </div>
-            </div> 
-
-
-
-
-
-            <div class="slideBox">
-
-                <div class="bar_title row">
-                    <div class="cell"> 
-                        <div class="left"> 
-                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
-                            <p class="title_txt icons">Rooms</p>
-                        </div>
-                        
-                        <div class="right"> 
-                            <img class="icons" src="/img/icons/063 Undo.png" onclick="move_slide(0)"> 
-                        </div>  
-                        
-                    </div>
-                </div> 
-
-
-                <div class="bar_input row add_room_info">
-                   <div class="cell">
-                        <div class="row">
-                            <div class="cell" style="width: initial;">
-                                <span>
-                                    <img id="toggle_room_box" class="icons" src="/img//icons/081 Pen.png"> 
-                                </span>
-                            </div>
-
-                            <div class="cell" name="create_room_text">
-                             <p name="toggle_room_box">Create New Room + </p>
-                            </div>
-
-
-                            <div class="cell" name="create_room_box" style="display:none">
-                                <textarea id="RoomName" placeholder="Type your RoomName"></textarea> 
-                            </div>
-                            <div class="cell initial"  name="create_room_box" style="display:none">
-
-                                    <input type="submit" id="add_room"  value="create"  class="btn right" style="width: 60px;"> 
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="area_Rooms one-edge-shadow">   
-
-                    <ul id="RoomList" class="RoomList">
-                    </ul>
-                </div>
-            </div> 
-
-
-
-            <div class="slideBox">
-
-                <div class="bar_title row">
-                    <div class="cell"> 
-                        <div class="left"> 
-                            <img class="icons" src="/img/icons/177 BookmarkUnused.png" > 
-                            <p class="title_txt icons">RoomName</p>
-                        </div>
-
-                        <div class="right"> 
-                            <img id="btn_disconnect" class="icons" src="/img/icons/063 Undo.png" > 
-                        </div>  
-                    </div>
-                </div>
-
-
-                <div class="bar_info row">
-                    <div class="cell">
-
-                            <div class="left">
-                                <img id="btn_userList" class="icons left" src="/img/icons/002 User.png" >
-
-                                
-                            </div>
-                            <p id="btn_userList_cnt"></p> 
-                            <div id="area_userList" style="display:none">
-                                    <div id="myid"></div>
-                                    <table id="userList" >
-                                    </table>
-                                </div>
-
-                    </div>
-                </div>
-
-               
-
-                <div class="bar_input row">
-                    <div class="cell">
-                        <div class="row">
-                            <div class="cell" style="width: initial;">
-                                <span id="my_location">
-                                    <img class="icons" src="/img//icons/079 Pin2.png" > 
-                                </span>
-                            </div>
-                            <div class="cell">
-                                <textarea id="msg"  placeholder="Type your message"></textarea> 
-                            </div>
-                            <div class="cell initial">
-
-                            <input type="submit" id="sendBtn"  class="btn right" value="send" style="width: 60px;"> 
-                            </div>
-                        </div>
-                    </div>   
-                </div>
-            </div> 
-
-        </div>
-    </div>
--->
-
+         
 </body>
 </html>
