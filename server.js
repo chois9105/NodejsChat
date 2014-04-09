@@ -34,30 +34,21 @@ var swig  = require('swig'),
     // NOTE: You should always cache templates in a production environment.
     // Don't leave both of these to `false` in production!
     app.get('/', function (req, res) {
-        var d=new Date();
+      var d=new Date();
       console.log("someone comes! - "+d);
       res.send('<script>location.href="/less";</script>');
     });
 
-    /* less test
-    app.get('/less', function (req, res) { 
-      res.render('/less/index', { 
-      });
-    });
-    */
 
 
 // mongodb connect
 MongoClient.connect('mongodb://localhost:27017/ChatData', function(err, db) {
-      if(err){
-        console.log("DB Error. Please Check mongodb server connection. ");
-        console.log(err);
+    if(err){
+      console.log("DB Error. Please Check mongodb server connection. ");
+      console.log(err);
+    }
 
-        }
-
-      //db.dropDatabase(function() { //remove collection when starting server
-      //}); 
-
+   
      var Room_collection = db.collection('Rooms');
      var Chat_collection = db.collection('Chats');
 
@@ -115,6 +106,10 @@ var clsSocket={};
         //console.log(io.sockets.in('roomf').manager.rooms);
 
         var myid = socket.id;
+
+        console.log(socket);
+
+
         // report stat
         socket.emit('con', { stat: 'connected' });
         

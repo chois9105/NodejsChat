@@ -3,8 +3,8 @@
 <head>
     <title></title> 
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/theme/bootstrap.min.css">
+    <link id="bootstrapTheme" rel="stylesheet" href="/css/theme/bootstrap.theme.min.css">
     <link rel="stylesheet" href="/css/full-slider.css">
     <link rel="stylesheet" href="/css/chat.css">
     <script src="less-1.6.1.min.js"></script> 
@@ -34,6 +34,46 @@
         rootpath: ":/a.com/"// a path to add on to the start of every url
                             //resource
     };
+
+
+var theme = {
+	oldTheme : '',
+	newTheme : '',
+
+	init : function() {
+
+	},
+
+	setTheme : function(theme) {
+        // this.newTheme = theme;
+        // var temp = $('#bootstrapTheme').attr('href');
+        // temp = tem
+        // console.log(theme);
+
+        var loc = $('#bootstrapTheme').attr('href');
+        var urlList = loc.split("/");
+
+        for(var i=0;i < urlList.length;i++){
+
+            console.log("Count : "+i+" value : "+urlList[i]);
+        }
+        
+	},
+
+	getTheme : function() {
+
+	}
+}
+
+$(document).ready(function(){
+
+	$('.themes').click(function(){
+        var themeName = $(this).attr('id');
+		theme.setTheme(themeName);
+	})
+
+})
+
 </script> 
 
 </head>
@@ -54,9 +94,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">theme1</a>
+                    <li><a href="#" id='amelia' class="themes">theme1</a>
                     </li>
-                    <li><a href="#">theme2</a>
+                    <li><a href="#" id='cerulean' class='themes'>theme2</a>
                     </li>
                     <li><a href="#">theme3</a>
                     </li>
